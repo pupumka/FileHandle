@@ -53,14 +53,15 @@ public class FileHandleController {
     }*/
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file
-                                   /*,RedirectAttributes redirectAttributes*/) {
+    @ResponseBody
+    public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file
+                                   ,RedirectAttributes redirectAttributes) {
         System.out.println("file:"+file);
         //storageService.store(file);
-        //redirectAttributes.addFlashAttribute("message",
-         //       "You successfully uploaded " + file.getOriginalFilename() + "!");
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded !");
 
-        return "file:"+file;
+        return new UploadResponse("file", "file", "file",111);
     }
 
     /*@ExceptionHandler(StorageFileNotFoundException.class)
