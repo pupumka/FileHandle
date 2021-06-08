@@ -1,6 +1,7 @@
 package com.example.ApplicationFiles;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +56,13 @@ public class FileHandleController {
     @PostMapping("/upload")
     @ResponseBody
     public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file
-                                   ,RedirectAttributes redirectAttributes) {
-        System.out.println("file:"+file);
+                                   ,RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
+
         //storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded !");
 
-        return new UploadResponse("file", "file", "file",111);
+        return new UploadResponse("file", "file", FileActions.getFileHash(file),111);
     }
 
     /*@ExceptionHandler(StorageFileNotFoundException.class)
