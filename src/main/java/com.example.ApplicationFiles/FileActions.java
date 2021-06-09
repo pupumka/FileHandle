@@ -13,20 +13,27 @@ import java.security.NoSuchAlgorithmException;
 import java.security.*;
 import java.util.Arrays;
 
+import ru.fsb.gost.GOSTProvider;
 import ru.ubmb.jstribog.StribogProvider;
 
 public class FileActions {
-    //Возвращает Хэш файла
-    public static String getFileHash(MultipartFile multipartFile) throws NoSuchAlgorithmException, IOException {
+    //Возвращает Хэш файла по госту 2018
+    public static String getFile2018Hash(MultipartFile multipartFile) throws NoSuchAlgorithmException, IOException {
         if (Security.getProvider("JStribog") == null) {
             Security.addProvider(new StribogProvider());
         }
-        //File jpgFile = new File("C:\\Users\\pumka\\Desktop\\testFile.jpg");
-        //byte[] fileContent = Files.readAllBytes(jpgFile.toPath());
-
         MessageDigest md = MessageDigest.getInstance("Stribog512");
         byte[] digest = md.digest(multipartFile.getBytes());
-        //byte[] digest = md.digest(fileContent);
+        return printHex(digest);
+    }
+
+    //Возвращает Хэш файла по госту 2012
+    public static String getFile2012Hash(MultipartFile multipartFile) throws NoSuchAlgorithmException, IOException {
+        if (Security.getProvider("GOST") == null) {
+            Security.addProvider(new GOSTProvider());
+        }
+        MessageDigest md = MessageDigest.getInstance("GOST3411-2012.512");
+        byte[] digest = md.digest(multipartFile.getBytes());
         return printHex(digest);
     }
 
@@ -40,11 +47,6 @@ public class FileActions {
             result = result + Integer.toHexString(iv).toUpperCase();
         }
         return result;
-    }
-
-    private static File multypartToFile(MultipartFile file){
-
-        return new File("");
     }
 
 }

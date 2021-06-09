@@ -55,14 +55,14 @@ public class FileHandleController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file
+    public UploadResponse[] handleFileUpload(@RequestParam("file") MultipartFile file
                                    ,RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
-
-        //storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded !");
-
-        return new UploadResponse("file", "file", FileActions.getFileHash(file),111);
+        UploadResponse resultArray[] = new UploadResponse[2];
+        resultArray[0] = new UploadResponse(file.getOriginalFilename(),"Stribog512",
+                FileActions.getFile2018Hash(file));
+        resultArray[1] = new UploadResponse(file.getOriginalFilename(), "GOST3411-2012.512",
+                FileActions.getFile2012Hash(file));
+        return resultArray;
     }
 
     /*@ExceptionHandler(StorageFileNotFoundException.class)

@@ -16,12 +16,4 @@ public class FileHandleApplication {
     public static void main(String[] args) {
         SpringApplication.run(FileHandleApplication.class, args);
     }
-
-    /*@Bean
-    CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
-        };
-    }*/
 }

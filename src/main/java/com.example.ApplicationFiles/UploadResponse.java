@@ -1,27 +1,23 @@
 package com.example.ApplicationFiles;
 public class UploadResponse {
-    private String fileName;
-    private String fileDownloadUri;
-    private String fileType;
-    private long size;
 
-    public UploadResponse(String fileName, String fileDownloadUri, String fileType, long size) {
+    private String fileName;
+    private String algorithm;
+    private String fileHash;
+
+    public UploadResponse(String fileName, String algorithm, String fileHash) {
         this.fileName = fileName;
-        this.fileDownloadUri = fileDownloadUri;
-        this.fileType = fileType;
-        this.size = size;
+        this.algorithm = algorithm;
+        this.fileHash = fileHash;
     }
     public String getFileName() {
         return this.fileName;
     }
-    public String getFileDownloadUri() {
-        return this.fileDownloadUri;
+    public String getAlgorithm() {
+        return this.algorithm;
     }
-    public String getFileType() {
-        return this.fileType;
-    }
-    public long getSize() {
-        return this.size;
+    public String getFileHash() {
+        return this.fileHash;
     }
 
 }
