@@ -14,8 +14,7 @@ public class FileHandleController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public UploadResponse[] handleFileUpload(@RequestParam("file") MultipartFile file
-                                   ,RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
+    public UploadResponse[] handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException, NoSuchAlgorithmException {
         return new UploadResponse[] {new UploadResponse(file.getOriginalFilename(),"Stribog512",
                 FileActions.getFile2018Hash(file)), new UploadResponse(file.getOriginalFilename(), "GOST3411-2012.512",
                 FileActions.getFile2012Hash(file))};
